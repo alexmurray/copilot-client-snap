@@ -1,0 +1,45 @@
+name: copilot-client
+base: core20
+version: 1.5.0
+summary: Github Copilot client from copilot.vim
+description: |
+  This is my-snap's description. You have a paragraph or two to tell the
+  most important story about your snap. Keep it under 100 words though,
+  we live in tweetspace and your description wants to look good in the snap
+  store.
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: strict
+
+apps:
+  node:
+    command: bin/node
+    plugs:
+      - home
+      - network
+
+  agent:
+    command: bin/node $SNAP/dist/agent.js
+    plugs:
+      - home
+      - network
+
+parts:
+  copilot-client:
+    # See 'snapcraft plugins'
+    plugin: npm
+    source: https://github.com/github/copilot.vim.git
+    npm-node-version: 16.17.0
+    override-build: |
+      # install the official nodejs so we get the expected npm version
+      if [ $SNAP_ARCH == "amd64" ]; then
+        ARCH=x64
+      elif [ $SNAP_ARCH == "armhf" ]; then
+        ARCH=armv7l
+      elif [ $SNAP_ARCH == "ppc64el" ]; then
+        ARCH=ppc64le
+      else
+        ARCH=$SNAP_ARCH
+      fi
+      curl -s https://nodejs.org/dist/v16.17.0/node-v16.17.0-linux-$ARCH.tar.gz | tar xzf - -C "$SNAPCRAFT_PART_INSTALL" --strip-components=1
+      cp -r copilot/dist $SNAPCRAFT_PART_INSTALL
