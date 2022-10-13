@@ -29,7 +29,9 @@ parts:
     # See 'snapcraft plugins'
     plugin: npm
     source: https://github.com/github/copilot.vim.git
-    npm-node-version: 16.17.0
+    build-environment:
+      - NODEJS_VERSION: "v16.17.1"
+    npm-node-version: $NODEJS_VERSION
     override-build: |
       # install the official nodejs so we get the expected npm version
       if [ $SNAP_ARCH == "amd64" ]; then
@@ -41,5 +43,5 @@ parts:
       else
         ARCH=$SNAP_ARCH
       fi
-      curl -s https://nodejs.org/dist/v16.17.0/node-v16.17.0-linux-$ARCH.tar.gz | tar xzf - -C "$SNAPCRAFT_PART_INSTALL" --strip-components=1
+      curl -s https://nodejs.org/dist/"${NODEJS_VERSION}"/node-"${NODEJS_VERSION}"-linux-$ARCH.tar.gz | tar xzf - -C "$SNAPCRAFT_PART_INSTALL" --strip-components=1
       cp -r copilot/dist $SNAPCRAFT_PART_INSTALL
