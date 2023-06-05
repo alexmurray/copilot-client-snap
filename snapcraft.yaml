@@ -1,15 +1,18 @@
 name: copilot-client
 base: core20
-version: 1.5.0
+adopt-info: copilot-client
 summary: Github Copilot client from copilot.vim
 description: |
-  This is my-snap's description. You have a paragraph or two to tell the
-  most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
+  GitHub Copilot uses OpenAI Codex to suggest code and entire functions in
+  real-time right from your editor. Trained on billions of lines of public code,
+  GitHub Copilot turns natural language prompts including comments and method
+  names into coding suggestions across dozens of languages.
 
-grade: devel # must be 'stable' to release into candidate/stable channels
+  This snap contains the copilot client from the copilot.vim extension.
+
+grade: stable
 confinement: strict
+license: Proprietary
 
 apps:
   node:
@@ -26,7 +29,6 @@ apps:
 
 parts:
   copilot-client:
-    # See 'snapcraft plugins'
     plugin: npm
     source: https://github.com/github/copilot.vim.git
     build-environment:
@@ -45,3 +47,4 @@ parts:
       fi
       curl -s https://nodejs.org/dist/"${NODEJS_VERSION}"/node-"${NODEJS_VERSION}"-linux-$ARCH.tar.gz | tar xzf - -C "$SNAPCRAFT_PART_INSTALL" --strip-components=1
       cp -r copilot/dist $SNAPCRAFT_PART_INSTALL
+      snapcraftctl set-version $(grep 'let s:plugin_version' ./autoload/copilot/agent.vim | awk '{print $4}' | sed "s/'//g")
