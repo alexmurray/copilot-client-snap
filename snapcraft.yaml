@@ -46,5 +46,5 @@ parts:
         ARCH=$SNAP_ARCH
       fi
       curl -s https://nodejs.org/dist/"${NODEJS_VERSION}"/node-"${NODEJS_VERSION}"-linux-$ARCH.tar.gz | tar xzf - -C "$SNAPCRAFT_PART_INSTALL" --strip-components=1
-      cp -r copilot/dist $SNAPCRAFT_PART_INSTALL
+      cp -r dist $SNAPCRAFT_PART_INSTALL
       snapcraftctl set-version $(grep 'let s:plugin_version' ./autoload/copilot/agent.vim | awk '{print $4}' | sed "s/'//g")
