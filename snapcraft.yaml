@@ -1,6 +1,6 @@
 name: copilot-client
 base: core20
-adopt-info: copilot-client
+version: 1.10.0
 summary: Github Copilot client from copilot.vim
 description: |
   GitHub Copilot uses OpenAI Codex to suggest code and entire functions in
@@ -31,6 +31,7 @@ parts:
   copilot-client:
     plugin: npm
     source: https://github.com/github/copilot.vim.git
+    source-tag: v$SNAPCRAFT_PROJECT_VERSION
     build-environment:
       - NODEJS_VERSION: "v18.17.1"
     npm-node-version: $NODEJS_VERSION
@@ -47,4 +48,3 @@ parts:
       fi
       curl -s https://nodejs.org/dist/"${NODEJS_VERSION}"/node-"${NODEJS_VERSION}"-linux-$ARCH.tar.gz | tar xzf - -C "$SNAPCRAFT_PART_INSTALL" --strip-components=1
       cp -r dist $SNAPCRAFT_PART_INSTALL
-      snapcraftctl set-version $(grep 'let s:plugin_version' ./autoload/copilot/agent.vim | awk '{print $4}' | sed "s/'//g")
