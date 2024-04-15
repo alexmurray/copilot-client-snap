@@ -1,6 +1,6 @@
 name: copilot-client
 base: core20
-version: 1.27.0
+version: 1.29.0
 summary: Github Copilot client from copilot.vim
 description: |
   GitHub Copilot uses OpenAI Codex to suggest code and entire functions in
