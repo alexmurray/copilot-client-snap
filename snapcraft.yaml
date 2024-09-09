@@ -21,8 +21,8 @@ apps:
       - home
       - network
 
-  agent:
-    command: bin/node $SNAP/dist/agent.js
+  language-service:
+    command: bin/node $SNAP/dist/language-service.js
     plugs:
       - home
       - network
