@@ -3,6 +3,9 @@ base: core20
 version: 1.41.0
 summary: Github Copilot client from copilot.vim
 description: |
+  **NOTE:** This snap is no longer maintained and instead the
+  copilot-language-server snap should be used instead.
+
   GitHub Copilot uses OpenAI Codex to suggest code and entire functions in
   real-time right from your editor. Trained on billions of lines of public code,
   GitHub Copilot turns natural language prompts including comments and method
